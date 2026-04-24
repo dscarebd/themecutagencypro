@@ -1,5 +1,5 @@
 import { Link, Outlet } from "@tanstack/react-router";
-import { Sparkles, Scissors, Menu } from "lucide-react";
+import { Scissors, Menu } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { navItems } from "@/lib/site-data";
@@ -29,9 +29,6 @@ export function AgencyLayout({ children }: { children?: React.ReactNode }) {
             ))}
           </nav>
           <div className="flex items-center gap-2">
-            <Button asChild className="hidden rounded-full sm:inline-flex">
-              <Link to="/admin"><Sparkles className="h-4 w-4" /> Admin</Link>
-            </Button>
             <Button asChild variant="secondary" size="icon" className="rounded-full md:hidden" aria-label="Open navigation">
               <Link to="/services"><Menu className="h-4 w-4" /></Link>
             </Button>
