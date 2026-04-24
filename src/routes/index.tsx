@@ -54,7 +54,7 @@ function Index() {
         <div className="mx-auto max-w-7xl"><h2 className="font-display text-5xl font-black">Featured cuts</h2><div className="mt-8 grid gap-5 md:grid-cols-3">{projects.map((project) => <Card key={project.title} className="rounded-3xl border-primary-foreground/20 bg-primary-foreground/10 text-primary-foreground"><CardContent className="p-6"><Play className="h-9 w-9 text-pop" /><h3 className="mt-4 text-2xl font-black">{project.title}</h3><p className="mt-2 text-pop">{project.metric}</p><p className="mt-4 text-primary-foreground/75">{project.copy}</p></CardContent></Card>)}</div></div>
       </section>
       <section className="mx-auto grid max-w-7xl gap-5 px-4 py-20 sm:px-6 md:grid-cols-2 lg:px-8">
-        <QuoteCard text="Theme Cut Agency gave our content an instantly recognizable rhythm and look." author="Nora Blake, SaaS founder" />
+        <QuoteCard text="Theme Cut Agency gave our content an instantly recognizable rhythm and look." author="Client review" />
         <Card className="rounded-3xl border-2 bg-card/85 shadow-xl"><CardContent className="p-6"><h2 className="font-display text-4xl font-black">FAQ</h2><div className="mt-5 space-y-4">{faqs.slice(0,3).map(([q,a]) => <div key={q}><p className="font-black">{q}</p><p className="text-sm text-muted-foreground">{a}</p></div>)}</div></CardContent></Card>
       </section>
     </>
