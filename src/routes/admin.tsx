@@ -15,6 +15,7 @@ import { deleteTeamMember, listTeamMembers, saveTeamMember, type TeamMember } fr
 const formSchema = z.object({
   id: z.string().uuid().optional(),
   name: z.string().trim().min(1).max(120),
+  slug: z.string().trim().max(80),
   image_url: z.string().trim().min(1).max(1000),
   role: z.string().trim().min(1).max(120),
   skills: z.array(z.string().trim().min(1).max(60)).min(1).max(8),
@@ -41,11 +42,11 @@ export const Route = createFileRoute("/admin")({
 });
 
 function emptyForm(order: number): FormState {
-  return { name: "", image_url: portraitsImage, role: "", skills: ["Video editing"], phone: "", email: "", bio: "", review: "", display_order: order };
+  return { name: "", slug: "", image_url: portraitsImage, role: "", skills: ["Video editing"], phone: "", email: "", bio: "", review: "", display_order: order };
 }
 
 function toForm(member: TeamMember): FormState {
-  return { id: member.id, name: member.name, image_url: member.image_url, role: member.role, skills: member.skills, phone: member.phone, email: member.email, bio: member.bio, review: member.review, display_order: member.display_order };
+  return { id: member.id, name: member.name, slug: member.slug, image_url: member.image_url, role: member.role, skills: member.skills, phone: member.phone, email: member.email, bio: member.bio, review: member.review, display_order: member.display_order };
 }
 
 function AdminPage({ initialMembers }: { initialMembers: TeamMember[] }) {
@@ -71,6 +72,7 @@ function AdminPage({ initialMembers }: { initialMembers: TeamMember[] }) {
         <Card className="rounded-[2rem] border-2 bg-card/90 shadow-xl"><CardContent className="space-y-4 p-5 md:p-7">
           <div className="grid gap-4 md:grid-cols-2">
             <Input value={form.name} onChange={(e) => update("name", e.target.value)} placeholder="Name" maxLength={120} />
+            <Input value={form.slug} onChange={(e) => update("slug", e.target.value)} placeholder="Profile URL slug" maxLength={80} />
             <Input value={form.role} onChange={(e) => update("role", e.target.value)} placeholder="Role" maxLength={120} />
             <Input value={form.email} onChange={(e) => update("email", e.target.value)} placeholder="Email" maxLength={255} />
             <Input value={form.phone} onChange={(e) => update("phone", e.target.value)} placeholder="Phone" maxLength={40} />

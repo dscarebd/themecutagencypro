@@ -10,6 +10,7 @@ export type TeamMember = Tables<"team_members">;
 const memberSchema = z.object({
   id: z.string().uuid().optional(),
   name: z.string().trim().min(1).max(120),
+  slug: z.string().trim().max(80).optional(),
   image_url: z.string().trim().min(1).max(1000),
   role: z.string().trim().min(1).max(120),
   skills: z.array(z.string().trim().min(1).max(60)).min(1).max(8),
@@ -76,7 +77,7 @@ export const getTeamMemberBySlug = createServerFn({ method: "GET" })
 export const saveTeamMember = createServerFn({ method: "POST" })
   .inputValidator((input) => memberSchema.parse(input))
   .handler(async ({ data }) => {
-    const slug = await uniqueSlug(data.name, data.id);
+    const slug = await uniqueSlug(data.slug || data.name, data.id);
     const payload = { ...data, slug };
     const query = data.id
       ? supabaseAdmin.from("team_members").update(payload).eq("id", data.id).select("*").single()
