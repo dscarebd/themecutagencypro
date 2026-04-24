@@ -1,16 +1,20 @@
-export const heroImage = new URL("../assets/cut-agency-hero.jpg", import.meta.url).href;
-export const teamImage = new URL("../assets/cut-agency-team.jpg", import.meta.url).href;
-export const portraitsImage = new URL("../assets/cut-agency-portraits.jpg", import.meta.url).href;
-const mayaImage = new URL("../assets/team-maya-chen.jpg", import.meta.url).href;
-const noahImage = new URL("../assets/team-noah-rivera.jpg", import.meta.url).href;
-const aishaImage = new URL("../assets/team-aisha-morgan.jpg", import.meta.url).href;
-const sofiaImage = new URL("../assets/team-sofia-patel.jpg", import.meta.url).href;
-const lucaImage = new URL("../assets/team-luca-kim.jpg", import.meta.url).href;
-const zaraImage = new URL("../assets/team-zara-okafor.jpg", import.meta.url).href;
-const glowupProjectImage = new URL("../assets/project-glowup-commerce.jpg", import.meta.url).href;
-const orbitProjectImage = new URL("../assets/project-orbit-learn.jpg", import.meta.url).href;
-const freshfuelProjectImage = new URL("../assets/project-freshfuel.jpg", import.meta.url).href;
-const skyloopProjectImage = new URL("../assets/project-skyloop-travel.jpg", import.meta.url).href;
+import heroImageUrl from "../assets/cut-agency-hero.jpg";
+import portraitsImageUrl from "../assets/cut-agency-portraits.jpg";
+import teamImageUrl from "../assets/cut-agency-team.jpg";
+import glowupProjectImage from "../assets/project-glowup-commerce.jpg";
+import freshfuelProjectImage from "../assets/project-freshfuel.jpg";
+import orbitProjectImage from "../assets/project-orbit-learn.jpg";
+import skyloopProjectImage from "../assets/project-skyloop-travel.jpg";
+import aishaImage from "../assets/team-aisha-morgan.jpg";
+import lucaImage from "../assets/team-luca-kim.jpg";
+import mayaImage from "../assets/team-maya-chen.jpg";
+import noahImage from "../assets/team-noah-rivera.jpg";
+import sofiaImage from "../assets/team-sofia-patel.jpg";
+import zaraImage from "../assets/team-zara-okafor.jpg";
+
+export const heroImage = heroImageUrl;
+export const teamImage = teamImageUrl;
+export const portraitsImage = portraitsImageUrl;
 
 export const memberImages: Record<string, string> = {
   "maya-chen": mayaImage,
