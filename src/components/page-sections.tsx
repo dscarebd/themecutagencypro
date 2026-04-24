@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, Mail, Phone, Quote, Star } from "lucide-react";
+import { ArrowRight, Mail, MapPin, Phone, Quote, Star } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -28,6 +28,7 @@ export function TeamGrid({ members }: { members: TeamMember[] }) {
           <CardContent className="p-5">
             <h2 className="font-display text-2xl font-black">{member.name}</h2>
             <p className="font-bold text-primary">{member.role}</p>
+            {member.address && <p className="mt-2 flex items-center gap-2 text-sm font-bold text-muted-foreground"><MapPin className="h-4 w-4 text-accent" /> {member.address}</p>}
             <div className="mt-4 flex flex-wrap gap-2">
               {member.skills.map((skill) => <span key={skill} className="rounded-full bg-secondary px-3 py-1 text-xs font-bold text-secondary-foreground">{skill}</span>)}
             </div>
