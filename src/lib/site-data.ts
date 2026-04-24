@@ -7,6 +7,10 @@ import aishaImage from "@/assets/team-aisha-morgan.jpg";
 import sofiaImage from "@/assets/team-sofia-patel.jpg";
 import lucaImage from "@/assets/team-luca-kim.jpg";
 import zaraImage from "@/assets/team-zara-okafor.jpg";
+import glowupProjectImage from "@/assets/project-glowup-commerce.jpg";
+import orbitProjectImage from "@/assets/project-orbit-learn.jpg";
+import freshfuelProjectImage from "@/assets/project-freshfuel.jpg";
+import skyloopProjectImage from "@/assets/project-skyloop-travel.jpg";
 
 export { heroImage, teamImage, portraitsImage };
 
@@ -50,19 +54,29 @@ export const projects = [
     title: "GlowUp Commerce Launch",
     type: "Video editing + social campaign",
     metric: "+182% view-through rate",
+    image: glowupProjectImage,
     copy: "A 21-day short-form launch system with product teasers, founder clips, and creator ads for a beauty brand entering three markets.",
   },
   {
     title: "Orbit Learn Creator Kit",
     type: "Brand design + templates",
     metric: "64 assets delivered",
+    image: orbitProjectImage,
     copy: "A playful learning brand kit with animated thumbnails, post templates, motion stickers, and a reusable pitch deck system.",
   },
   {
     title: "FreshFuel Social Sprint",
     type: "Social media growth",
     metric: "3.8M organic reach",
+    image: freshfuelProjectImage,
     copy: "Trend-led restaurant content that mixed kinetic food edits, influencer prompts, and weekly analytics-backed creative tests.",
+  },
+  {
+    title: "SkyLoop Travel Reels",
+    type: "Travel content + creator edits",
+    metric: "42 reels in 6 weeks",
+    image: skyloopProjectImage,
+    copy: "A bright travel-app campaign with destination reels, creator voiceovers, and fast-cut itineraries built for mobile discovery.",
   },
 ];
 

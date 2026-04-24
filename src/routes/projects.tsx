@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Film, TrendingUp } from "lucide-react";
+import { TrendingUp } from "lucide-react";
 
 import { SectionIntro } from "@/components/page-sections";
 import { Card, CardContent } from "@/components/ui/card";
@@ -25,9 +25,9 @@ function ProjectsPage() {
         {projects.map((project, index) => (
           <Card key={project.title} className="overflow-hidden rounded-[2rem] border-2 bg-card/90 shadow-xl">
             <CardContent className="grid gap-6 p-6 md:grid-cols-[.9fr_1.1fr] md:p-8">
-              <div className="relative min-h-56 rounded-3xl hero-gradient p-6 text-primary-foreground">
-                <Film className="h-12 w-12" />
-                <p className="absolute bottom-6 left-6 font-display text-6xl font-black">0{index + 1}</p>
+              <div className="relative min-h-56 overflow-hidden rounded-3xl bg-secondary">
+                <img src={project.image} alt={`${project.title} project visual`} className="h-full min-h-56 w-full object-cover" loading={index === 0 ? "eager" : "lazy"} width={1024} height={768} />
+                <p className="absolute bottom-5 left-5 rounded-full bg-pop px-4 py-2 font-display text-2xl font-black text-pop-foreground shadow-lg">0{index + 1}</p>
               </div>
               <div className="flex flex-col justify-center">
                 <p className="font-black text-accent">{project.type}</p>
