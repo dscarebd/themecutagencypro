@@ -1,3 +1,4 @@
+import { notFound } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 
@@ -38,8 +39,11 @@ async function uniqueSlug(name: string, id?: string) {
   let candidate = base;
   let suffix = 2;
   while (true) {
-    let query = supabaseAdmin.from("team_members").select("id").eq("slug", candidate).maybeSingle();
-    const { data, error } = await query;
+    const { data, error } = await supabaseAdmin
+      .from("team_members")
+      .select("id")
+      .eq("slug", candidate)
+      .maybeSingle();
     if (error) throw new Error(error.message);
     if (!data || data.id === id) return candidate;
     candidate = `${base}-${suffix}`;
@@ -55,3 +59,37 @@ export const listTeamMembers = createServerFn({ method: "GET" }).handler(async (
   if (error) throw new Error(error.message);
   return data ?? [];
 });
+
+export const getTeamMemberBySlug = createServerFn({ method: "GET" })
+  .inputValidator((input) => slugInputSchema.parse(input))
+  .handler(async ({ data }) => {
+    const { data: member, error } = await supabaseAdmin
+      .from("team_members")
+      .select("*")
+      .eq("slug", data.slug)
+      .maybeSingle();
+    if (error) throw new Error(error.message);
+    if (!member) throw notFound();
+    return member;
+  });
+
+export const saveTeamMember = createServerFn({ method: "POST" })
+  .inputValidator((input) => memberSchema.parse(input))
+  .handler(async ({ data }) => {
+    const slug = await uniqueSlug(data.name, data.id);
+    const payload = { ...data, slug };
+    const query = data.id
+      ? supabaseAdmin.from("team_members").update(payload).eq("id", data.id).select("*").single()
+      : supabaseAdmin.from("team_members").insert(payload).select("*").single();
+    const { data: member, error } = await query;
+    if (error) throw new Error(error.message);
+    return member;
+  });
+
+export const deleteTeamMember = createServerFn({ method: "POST" })
+  .inputValidator((input) => deleteInputSchema.parse(input))
+  .handler(async ({ data }) => {
+    const { error } = await supabaseAdmin.from("team_members").delete().eq("id", data.id);
+    if (error) throw new Error(error.message);
+    return { ok: true };
+  });
