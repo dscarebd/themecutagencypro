@@ -10,14 +10,17 @@ export const Route = createFileRoute("/team/$slug")({
   loader: ({ params }) => getTeamMemberBySlug({ data: { slug: params.slug } }),
   errorComponent: () => <MissingProfile />,
   notFoundComponent: MissingProfile,
-  head: ({ loaderData }) => ({ meta: [
-    { title: `${loaderData.name} — Cut Agency Team` },
-    { name: "description", content: loaderData.bio.slice(0, 155) },
-    { property: "og:title", content: `${loaderData.name} — ${loaderData.role}` },
-    { property: "og:description", content: loaderData.review },
-    { property: "og:image", content: loaderData.image_url.startsWith("/src/assets") ? portraitsImage : loaderData.image_url },
-    { name: "twitter:image", content: loaderData.image_url.startsWith("/src/assets") ? portraitsImage : loaderData.image_url },
-  ]}),
+  head: ({ loaderData }) => {
+    const member = loaderData;
+    const image = member?.image_url.startsWith("/src/assets") ? portraitsImage : member?.image_url;
+    return { meta: [
+      { title: member ? `${member.name} — Cut Agency Team` : "Team Profile — Cut Agency" },
+      { name: "description", content: member?.bio.slice(0, 155) ?? "Cut Agency team profile." },
+      { property: "og:title", content: member ? `${member.name} — ${member.role}` : "Team Profile — Cut Agency" },
+      { property: "og:description", content: member?.review ?? "Meet a Cut Agency creative team member." },
+      ...(image ? [{ property: "og:image", content: image }, { name: "twitter:image", content: image }] : []),
+    ] };
+  },
   component: ProfilePage,
 });
 
@@ -32,7 +35,7 @@ function ProfilePage() {
           <p className="font-black uppercase text-accent">{member.role}</p>
           <h1 className="mt-3 font-display text-6xl font-black">{member.name}</h1>
           <p className="mt-5 text-xl text-muted-foreground">{member.bio}</p>
-          <div className="mt-6 flex flex-wrap gap-2">{member.skills.map((skill) => <span key={skill} className="rounded-full bg-secondary px-4 py-2 text-sm font-black text-secondary-foreground">{skill}</span>)}</div>
+          <div className="mt-6 flex flex-wrap gap-2">{member.skills.map((skill: string) => <span key={skill} className="rounded-full bg-secondary px-4 py-2 text-sm font-black text-secondary-foreground">{skill}</span>)}</div>
           <Card className="mt-8 rounded-3xl border-2 bg-card/85"><CardContent className="p-6"><Star className="h-6 w-6 text-pop" /><p className="mt-3 text-lg font-bold">“{member.review}”</p></CardContent></Card>
           <div className="mt-8 flex flex-wrap gap-3">
             <Button asChild className="rounded-full"><a href={`mailto:${member.email}`}><Mail className="h-4 w-4" /> {member.email}</a></Button>
