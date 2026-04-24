@@ -39,7 +39,7 @@ export function AgencyLayout({ children }: { children?: React.ReactNode }) {
         </div>
       </header>
       <main>{children ?? <Outlet />}</main>
-      <footer className="border-t border-primary-foreground/20 bg-ink text-background">
+      <footer className="border-t-4 border-primary bg-foreground text-background">
         <div className="mx-auto grid max-w-7xl gap-8 px-4 py-12 sm:px-6 md:grid-cols-[1.3fr_.8fr_.8fr_1fr] lg:px-8">
           <div>
             <Link to="/" className="inline-flex items-center gap-2 font-display text-2xl font-black text-background">
