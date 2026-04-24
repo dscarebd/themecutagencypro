@@ -50,7 +50,7 @@ export function TeamGrid({ members }: { members: TeamMember[] }) {
 
 export function ReviewStrip() {
   return (
-    <section className="overflow-hidden border-y bg-ink py-5 text-primary-foreground">
+    <section className="overflow-hidden border-y bg-foreground py-5 text-background">
       <div className="ticker flex w-max gap-4 whitespace-nowrap">
         {[...Array(2)].map((_, repeat) => ["Fast edits", "Global social campaigns", "Bright brand systems", "Creator-ready launch kits", "Weekly content engine"].map((item) => (
           <span key={`${repeat}-${item}`} className="mx-4 inline-flex items-center gap-2 font-display text-xl font-black"><Star className="h-5 w-5 text-pop" /> {item}</span>

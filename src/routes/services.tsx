@@ -42,9 +42,9 @@ function ServicesPage() {
           );
         })}
       </div>
-      <div className="mt-12 rounded-[2rem] bg-ink p-8 text-primary-foreground shadow-2xl md:p-12">
-        <h2 className="font-display text-4xl font-black">Need a full content team without hiring one?</h2>
-        <p className="mt-3 max-w-2xl text-primary-foreground/75">We plug into your launch calendar, build the creative pipeline, and deliver consistent assets for every key channel.</p>
+      <div className="mt-12 rounded-[2rem] bg-foreground p-8 text-background shadow-2xl md:p-12">
+        <h2 className="font-display text-4xl font-black text-background">Need a full content team without hiring one?</h2>
+        <p className="mt-3 max-w-2xl text-background/80">We plug into your launch calendar, build the creative pipeline, and deliver consistent assets for every key channel.</p>
         <Button asChild className="mt-6 rounded-full"><Link to="/contact">Book a creative call</Link></Button>
       </div>
     </section>
