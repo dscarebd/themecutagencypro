@@ -40,19 +40,38 @@ export function AgencyLayout({ children }: { children?: React.ReactNode }) {
       </header>
       <main>{children ?? <Outlet />}</main>
       <footer className="border-t bg-ink text-primary-foreground">
-        <div className="mx-auto grid max-w-7xl gap-8 px-4 py-10 sm:px-6 md:grid-cols-[1.4fr_1fr_1fr] lg:px-8">
+        <div className="mx-auto grid max-w-7xl gap-8 px-4 py-12 sm:px-6 md:grid-cols-[1.3fr_.8fr_.8fr_1fr] lg:px-8">
           <div>
-            <p className="font-display text-2xl font-black">Theme Cut Agency</p>
-            <p className="mt-3 max-w-md text-sm text-primary-foreground/75">Playful video editing, social media, and brand design for international teams that need scroll-stopping creative every week.</p>
+            <Link to="/" className="inline-flex items-center gap-2 font-display text-2xl font-black">
+              <span className="flex h-10 w-10 items-center justify-center rounded-2xl hero-gradient text-primary-foreground shadow-lg">
+                <Scissors className="h-5 w-5" />
+              </span>
+              Theme Cut Agency
+            </Link>
+            <p className="mt-4 max-w-md text-sm leading-6 text-primary-foreground/75">Playful video editing, social media, and brand design for international teams that need scroll-stopping creative every week.</p>
           </div>
           <div>
-            <p className="font-bold">Studio</p>
-            <p className="mt-3 text-sm text-primary-foreground/75">London · Dubai · Toronto · Remote worldwide</p>
+            <p className="font-black">Explore</p>
+            <div className="mt-4 grid gap-2 text-sm text-primary-foreground/75">
+              {navItems.map((item) => <Link key={item.to} to={item.to} className="transition hover:text-primary-foreground">{item.label}</Link>)}
+            </div>
           </div>
           <div>
-            <p className="font-bold">Contact</p>
-            <p className="mt-3 text-sm text-primary-foreground/75">hello@cutagency.studio<br />+1 646 555 0147</p>
+            <p className="font-black">Services</p>
+            <div className="mt-4 grid gap-2 text-sm text-primary-foreground/75">
+              <span>Video editing</span>
+              <span>Social growth</span>
+              <span>Brand design</span>
+              <span>Creator kits</span>
+            </div>
           </div>
+          <div>
+            <p className="font-black">Contact</p>
+            <p className="mt-4 text-sm leading-6 text-primary-foreground/75">London · Dubai · Toronto<br />Remote worldwide<br />hello@cutagency.studio<br />+1 646 555 0147</p>
+          </div>
+        </div>
+        <div className="border-t border-primary-foreground/15 px-4 py-5 text-center text-xs font-bold text-primary-foreground/60">
+          © 2026 Theme Cut Agency. Built for bold brands and fast-moving feeds.
         </div>
       </footer>
     </div>
