@@ -52,7 +52,7 @@ export const projects = [
 ];
 
 export const faqs = [
-  ["How fast can Cut Agency deliver?", "Most short-form editing sprints start within 48 hours and weekly content packs ship on a clear production calendar."],
+  ["How fast can Theme Cut Agency deliver?", "Most short-form editing sprints start within 48 hours and weekly content packs ship on a clear production calendar."],
   ["Do you work with international brands?", "Yes. Our process is remote-first, timezone-aware, and built for founders, creators, and teams across markets."],
   ["Can you manage both design and editing?", "Yes. We combine editing, social systems, and brand visuals so campaigns feel consistent from scroll to sale."],
   ["Can team profiles be edited?", "Yes. The admin panel lets you update names, roles, bios, contact details, skills, reviews, images, and profile URLs."],

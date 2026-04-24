@@ -8,10 +8,10 @@ import { heroImage, services } from "@/lib/site-data";
 
 export const Route = createFileRoute("/services")({
   head: () => ({ meta: [
-    { title: "Services — Cut Agency" },
+    { title: "Services — Theme Cut Agency" },
     { name: "description", content: "Video editing, social media, and brand design services for international campaigns." },
-    { property: "og:title", content: "Services — Cut Agency" },
-    { property: "og:description", content: "Explore Cut Agency video editing, social media, and brand design services." },
+    { property: "og:title", content: "Services — Theme Cut Agency" },
+    { property: "og:description", content: "Explore Theme Cut Agency video editing, social media, and brand design services." },
     { property: "og:image", content: heroImage },
     { name: "twitter:image", content: heroImage },
   ]}),

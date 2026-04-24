@@ -18,10 +18,10 @@ const contactSchema = z.object({
 
 export const Route = createFileRoute("/contact")({
   head: () => ({ meta: [
-    { title: "Contact — Cut Agency" },
-    { name: "description", content: "Contact Cut Agency for video editing, social media, and brand design projects." },
-    { property: "og:title", content: "Contact — Cut Agency" },
-    { property: "og:description", content: "Start an international creative project with Cut Agency." },
+    { title: "Contact — Theme Cut Agency" },
+    { name: "description", content: "Contact Theme Cut Agency for video editing, social media, and brand design projects." },
+    { property: "og:title", content: "Contact — Theme Cut Agency" },
+    { property: "og:description", content: "Start an international creative project with Theme Cut Agency." },
     { property: "og:image", content: heroImage },
     { name: "twitter:image", content: heroImage },
   ]}),

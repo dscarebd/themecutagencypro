@@ -14,10 +14,10 @@ export const Route = createFileRoute("/team/$slug")({
     const member = loaderData;
     const image = member?.image_url.startsWith("/src/assets") ? portraitsImage : member?.image_url;
     return { meta: [
-      { title: member ? `${member.name} — Cut Agency Team` : "Team Profile — Cut Agency" },
-      { name: "description", content: member?.bio.slice(0, 155) ?? "Cut Agency team profile." },
-      { property: "og:title", content: member ? `${member.name} — ${member.role}` : "Team Profile — Cut Agency" },
-      { property: "og:description", content: member?.review ?? "Meet a Cut Agency creative team member." },
+      { title: member ? `${member.name} — Theme Cut Agency Team` : "Team Profile — Theme Cut Agency" },
+      { name: "description", content: member?.bio.slice(0, 155) ?? "Theme Cut Agency team profile." },
+      { property: "og:title", content: member ? `${member.name} — ${member.role}` : "Team Profile — Theme Cut Agency" },
+      { property: "og:description", content: member?.review ?? "Meet a Theme Cut Agency creative team member." },
       ...(image ? [{ property: "og:image", content: image }, { name: "twitter:image", content: image }] : []),
     ] };
   },
