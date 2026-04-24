@@ -39,9 +39,9 @@ function ProfilePage() {
           <Card className="mt-8 rounded-3xl border-2 bg-card/85"><CardContent className="p-6"><Star className="h-6 w-6 text-pop" /><p className="mt-3 text-lg font-bold">“{member.review}”</p></CardContent></Card>
           <div className="mt-8 flex flex-wrap gap-3">
             <Button asChild className="rounded-full"><a href={`mailto:${member.email}`}><Mail className="h-4 w-4" /> {member.email}</a></Button>
+            {member.address && <span className="inline-flex items-center gap-2 rounded-full bg-secondary px-4 py-2 text-sm font-black text-secondary-foreground shadow-sm"><MapPin className="h-4 w-4" /> {member.address}</span>}
             <Button asChild variant="secondary" className="rounded-full"><a href={`tel:${member.phone}`}><Phone className="h-4 w-4" /> {member.phone}</a></Button>
           </div>
-          {member.address && <p className="mt-4 flex items-center gap-2 text-lg font-black text-primary"><MapPin className="h-5 w-5" /> {member.address}</p>}
         </div>
       </div>
     </section>
