@@ -1,6 +1,6 @@
 import { createFileRoute, Link, useRouter } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
-import { Plus, Save, Trash2 } from "lucide-react";
+import { ImageUp, Plus, Save, Trash2 } from "lucide-react";
 import { useMemo, useState } from "react";
 import { z } from "zod";
 
@@ -11,7 +11,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { fallbackTeam, portraitsImage } from "@/lib/site-data";
-import { deleteTeamMember, listTeamMembers, saveTeamMember, type TeamMember } from "@/lib/team.functions";
+import { deleteTeamMember, listTeamMembers, saveTeamMember, uploadTeamImage, type TeamMember } from "@/lib/team.functions";
 
 const formSchema = z.object({
   id: z.string().uuid().optional(),
@@ -54,6 +54,7 @@ function AdminPage({ initialMembers }: { initialMembers: TeamMember[] }) {
   const router = useRouter();
   const saveMember = useServerFn(saveTeamMember);
   const removeMember = useServerFn(deleteTeamMember);
+  const uploadImage = useServerFn(uploadTeamImage);
   const [selectedId, setSelectedId] = useState<string | "new">(initialMembers[0]?.id ?? "new");
   const selected = useMemo(() => initialMembers.find((m) => m.id === selectedId), [initialMembers, selectedId]);
   const [form, setForm] = useState<FormState>(selected ? toForm(selected) : emptyForm(initialMembers.length + 1));
@@ -61,6 +62,17 @@ function AdminPage({ initialMembers }: { initialMembers: TeamMember[] }) {
 
   function choose(member: TeamMember) { setSelectedId(member.id); setForm(toForm(member)); setStatus(""); }
   function update<K extends keyof FormState>(key: K, value: FormState[K]) { setForm((current) => ({ ...current, [key]: value })); }
+
+  async function handleImageUpload(file?: File) {
+    if (!file) return;
+    if (!/^image\/(jpeg|png|webp)$/.test(file.type)) { setStatus("Please upload a JPG, PNG, or WEBP image."); return; }
+    if (file.size > 6 * 1024 * 1024) { setStatus("Image must be under 6MB."); return; }
+    setStatus("Uploading image...");
+    const base64 = await fileToBase64(file);
+    const uploaded = await uploadImage({ data: { file_name: file.name, content_type: file.type, base64 } });
+    update("image_url", uploaded.url);
+    setStatus("Image uploaded. Save the profile to publish it.");
+  }
 
   return (
     <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
@@ -79,6 +91,14 @@ function AdminPage({ initialMembers }: { initialMembers: TeamMember[] }) {
             <Field label="Phone"><Input value={form.phone} onChange={(e) => update("phone", e.target.value)} placeholder="Phone" maxLength={40} /></Field>
             <Field label="Image URL"><Input value={form.image_url} onChange={(e) => update("image_url", e.target.value)} placeholder="Image URL" maxLength={1000} /></Field>
             <Field label="Display order"><Input type="number" value={form.display_order} onChange={(e) => update("display_order", Number(e.target.value))} placeholder="Display order" /></Field>
+          </div>
+          <div className="grid gap-3 rounded-3xl border-2 bg-background/70 p-4 sm:grid-cols-[120px_1fr]">
+            <img src={form.image_url || portraitsImage} alt="Team member preview" className="aspect-square w-full rounded-2xl object-cover" />
+            <div className="flex flex-col justify-center gap-3">
+              <Label htmlFor="team-photo" className="flex items-center gap-2 font-black text-foreground"><ImageUp className="h-4 w-4" /> Upload profile photo</Label>
+              <Input id="team-photo" type="file" accept="image/jpeg,image/png,image/webp" onChange={(event) => void handleImageUpload(event.target.files?.[0])} />
+              <p className="text-sm font-bold text-muted-foreground">JPG, PNG, or WEBP. Upload sets the image URL automatically.</p>
+            </div>
           </div>
           <Field label="Skills"><Input value={form.skills.join(", ")} onChange={(e) => update("skills", e.target.value.split(",").map((s) => s.trim()).filter(Boolean))} placeholder="Skills separated by commas" /></Field>
           <Field label="Bio"><Textarea value={form.bio} onChange={(e) => update("bio", e.target.value)} placeholder="Bio" className="min-h-28" maxLength={1200} /></Field>
@@ -103,4 +123,13 @@ function AdminPage({ initialMembers }: { initialMembers: TeamMember[] }) {
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return <div className="grid gap-2"><Label className="font-black text-foreground">{label}</Label>{children}</div>;
+}
+
+function fileToBase64(file: File) {
+  return new Promise<string>((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(String(reader.result).split(",")[1] || "");
+    reader.onerror = () => reject(new Error("Could not read image."));
+    reader.readAsDataURL(file);
+  });
 }
