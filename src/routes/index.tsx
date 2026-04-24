@@ -50,8 +50,8 @@ function Index() {
           })}
         </div>
       </section>
-      <section className="bg-ink px-4 py-20 text-primary-foreground sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-7xl"><h2 className="font-display text-5xl font-black">Featured cuts</h2><div className="mt-8 grid gap-5 md:grid-cols-3">{projects.map((project) => <Card key={project.title} className="rounded-3xl border-primary-foreground/20 bg-primary-foreground/10 text-primary-foreground"><CardContent className="p-6"><Play className="h-9 w-9 text-pop" /><h3 className="mt-4 text-2xl font-black">{project.title}</h3><p className="mt-2 text-pop">{project.metric}</p><p className="mt-4 text-primary-foreground/75">{project.copy}</p></CardContent></Card>)}</div></div>
+      <section className="border-y bg-secondary/45 px-4 py-20 text-foreground sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl"><h2 className="font-display text-5xl font-black">Featured cuts</h2><div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-4">{projects.map((project) => <Card key={project.title} className="overflow-hidden rounded-3xl border-2 bg-card/90 shadow-xl"><div className="aspect-[4/3] overflow-hidden bg-secondary"><img src={project.image} alt={`${project.title} project visual`} className="h-full w-full object-cover" loading="lazy" width={1024} height={768} /></div><CardContent className="p-5"><Play className="h-8 w-8 text-accent" /><h3 className="mt-4 text-xl font-black">{project.title}</h3><p className="mt-2 font-bold text-primary">{project.metric}</p><p className="mt-4 text-sm text-muted-foreground">{project.copy}</p></CardContent></Card>)}</div></div>
       </section>
       <section className="mx-auto grid max-w-7xl gap-5 px-4 py-20 sm:px-6 md:grid-cols-2 lg:px-8">
         <QuoteCard text="Theme Cut Agency gave our content an instantly recognizable rhythm and look." author="Client review" />
