@@ -22,10 +22,7 @@ const memberSchema = z.object({
 });
 
 const slugInputSchema = z.object({ slug: z.string().trim().min(1).max(160) });
-const accessTokenSchema = z.string().trim().min(20).max(4096);
-const saveInputSchema = memberSchema.extend({ access_token: accessTokenSchema });
-const deleteInputSchema = z.object({ id: z.string().uuid(), access_token: accessTokenSchema });
-const authInputSchema = z.object({ access_token: accessTokenSchema });
+const deleteInputSchema = z.object({ id: z.string().uuid() });
 
 function slugify(value: string) {
   const slug = value
@@ -55,34 +52,6 @@ async function uniqueSlug(name: string, id?: string) {
   }
 }
 
-async function getUserIdFromToken(accessToken: string) {
-  const { data, error } = await supabaseAdmin.auth.getUser(accessToken);
-  if (error || !data.user) throw new Error("Please sign in to continue.");
-  return { userId: data.user.id, email: data.user.email ?? "" };
-}
-
-async function adminCount() {
-  const { count, error } = await (supabaseAdmin as any)
-    .from("user_roles")
-    .select("id", { count: "exact", head: true })
-    .eq("role", "admin");
-  if (error) throw new Error(error.message);
-  return count ?? 0;
-}
-
-async function assertAdmin(accessToken: string) {
-  const user = await getUserIdFromToken(accessToken);
-  const { data, error } = await (supabaseAdmin as any)
-    .from("user_roles")
-    .select("id")
-    .eq("user_id", user.userId)
-    .eq("role", "admin")
-    .maybeSingle();
-  if (error) throw new Error(error.message);
-  if (!data) throw new Error("Admin access is required.");
-  return user;
-}
-
 export const listTeamMembers = createServerFn({ method: "GET" }).handler(async () => {
   const { data, error } = await supabaseAdmin
     .from("team_members")
@@ -105,39 +74,13 @@ export const getTeamMemberBySlug = createServerFn({ method: "GET" })
     return member;
   });
 
-export const getAdminAccess = createServerFn({ method: "POST" })
-  .inputValidator((input) => authInputSchema.parse(input))
-  .handler(async ({ data }) => {
-    const user = await getUserIdFromToken(data.access_token);
-    const { data: role, error } = await (supabaseAdmin as any)
-      .from("user_roles")
-      .select("id")
-      .eq("user_id", user.userId)
-      .eq("role", "admin")
-      .maybeSingle();
-    if (error) throw new Error(error.message);
-    return { authenticated: true, isAdmin: Boolean(role), canClaimAdmin: (await adminCount()) === 0, email: user.email };
-  });
-
-export const claimFirstAdmin = createServerFn({ method: "POST" })
-  .inputValidator((input) => authInputSchema.parse(input))
-  .handler(async ({ data }) => {
-    const user = await getUserIdFromToken(data.access_token);
-    if ((await adminCount()) > 0) throw new Error("An admin already exists.");
-    const { error } = await (supabaseAdmin as any).from("user_roles").insert({ user_id: user.userId, role: "admin" });
-    if (error) throw new Error(error.message);
-    return { ok: true, email: user.email };
-  });
-
 export const saveTeamMember = createServerFn({ method: "POST" })
-  .inputValidator((input) => saveInputSchema.parse(input))
+  .inputValidator((input) => memberSchema.parse(input))
   .handler(async ({ data }) => {
-    await assertAdmin(data.access_token);
-    const { access_token, ...memberData } = data;
-    const slug = await uniqueSlug(memberData.slug || memberData.name, memberData.id);
-    const payload = { ...memberData, slug };
-    const query = memberData.id
-      ? supabaseAdmin.from("team_members").update(payload).eq("id", memberData.id).select("*").single()
+    const slug = await uniqueSlug(data.slug || data.name, data.id);
+    const payload = { ...data, slug };
+    const query = data.id
+      ? supabaseAdmin.from("team_members").update(payload).eq("id", data.id).select("*").single()
       : supabaseAdmin.from("team_members").insert(payload).select("*").single();
     const { data: member, error } = await query;
     if (error) throw new Error(error.message);
@@ -147,7 +90,6 @@ export const saveTeamMember = createServerFn({ method: "POST" })
 export const deleteTeamMember = createServerFn({ method: "POST" })
   .inputValidator((input) => deleteInputSchema.parse(input))
   .handler(async ({ data }) => {
-    await assertAdmin(data.access_token);
     const { error } = await supabaseAdmin.from("team_members").delete().eq("id", data.id);
     if (error) throw new Error(error.message);
     return { ok: true };
