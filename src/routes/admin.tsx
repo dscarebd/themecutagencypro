@@ -93,7 +93,7 @@ function AdminPage({ initialMembers }: { initialMembers: TeamMember[] }) {
             <Field label="Display order"><Input type="number" value={form.display_order} onChange={(e) => update("display_order", Number(e.target.value))} placeholder="Display order" /></Field>
           </div>
           <div className="grid gap-3 rounded-3xl border-2 bg-background/70 p-4 sm:grid-cols-[120px_1fr]">
-            <img src={form.image_url || portraitsImage} alt="Team member preview" className="aspect-square w-full rounded-2xl object-cover" />
+            <img src={form.image_url || portraitsImage} alt="Team member preview" className="aspect-square w-full rounded-2xl object-cover" loading="lazy" decoding="async" width={120} height={120} />
             <div className="flex flex-col justify-center gap-3">
               <Label htmlFor="team-photo" className="flex items-center gap-2 font-black text-foreground"><ImageUp className="h-4 w-4" /> Upload profile photo</Label>
               <Input id="team-photo" type="file" accept="image/jpeg,image/png,image/webp" onChange={(event) => void handleImageUpload(event.target.files?.[0])} />
