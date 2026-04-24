@@ -21,6 +21,7 @@ const formSchema = z.object({
   role: z.string().trim().min(1).max(120),
   skills: z.array(z.string().trim().min(1).max(60)).min(1).max(8),
   phone: z.string().trim().min(5).max(40),
+  address: z.string().trim().max(300),
   email: z.string().trim().email().max(255),
   bio: z.string().trim().min(1).max(1200),
   review: z.string().trim().min(1).max(600),
@@ -43,11 +44,11 @@ export const Route = createFileRoute("/admin")({
 });
 
 function emptyForm(order: number): FormState {
-  return { name: "", slug: "", image_url: portraitsImage, role: "", skills: ["Video editing"], phone: "", email: "", bio: "", review: "", display_order: order };
+  return { name: "", slug: "", image_url: portraitsImage, role: "", skills: ["Video editing"], phone: "", address: "", email: "", bio: "", review: "", display_order: order };
 }
 
 function toForm(member: TeamMember): FormState {
-  return { id: member.id, name: member.name, slug: member.slug, image_url: member.image_url, role: member.role, skills: member.skills, phone: member.phone, email: member.email, bio: member.bio, review: member.review, display_order: member.display_order };
+  return { id: member.id, name: member.name, slug: member.slug, image_url: member.image_url, role: member.role, skills: member.skills, phone: member.phone, address: member.address ?? "", email: member.email, bio: member.bio, review: member.review, display_order: member.display_order };
 }
 
 function slugFromName(value: string) {
@@ -99,6 +100,7 @@ function AdminPage({ initialMembers }: { initialMembers: TeamMember[] }) {
             <Field label="Role"><Input value={form.role} onChange={(e) => update("role", e.target.value)} placeholder="Role" maxLength={120} /></Field>
             <Field label="Email"><Input value={form.email} onChange={(e) => update("email", e.target.value)} placeholder="Email" maxLength={255} /></Field>
             <Field label="Phone"><Input value={form.phone} onChange={(e) => update("phone", e.target.value)} placeholder="Phone" maxLength={40} /></Field>
+            <Field label="Address"><Input value={form.address} onChange={(e) => update("address", e.target.value)} placeholder="Address" maxLength={300} /></Field>
             <Field label="Image URL"><Input value={form.image_url} onChange={(e) => update("image_url", e.target.value)} placeholder="Image URL" maxLength={1000} /></Field>
             <Field label="Display order"><Input type="number" value={form.display_order} onChange={(e) => update("display_order", Number(e.target.value))} placeholder="Display order" /></Field>
           </div>

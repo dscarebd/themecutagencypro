@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Mail, Phone, Star } from "lucide-react";
+import { Mail, MapPin, Phone, Star } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -34,6 +34,7 @@ function ProfilePage() {
         <div className="flex flex-col justify-center">
           <p className="font-black uppercase text-accent">{member.role}</p>
           <h1 className="mt-3 font-display text-6xl font-black">{member.name}</h1>
+          {member.address && <p className="mt-4 flex items-center gap-2 text-lg font-black text-primary"><MapPin className="h-5 w-5" /> {member.address}</p>}
           <p className="mt-5 text-xl text-muted-foreground">{member.bio}</p>
           <div className="mt-6 flex flex-wrap gap-2">{member.skills.map((skill: string) => <span key={skill} className="rounded-full bg-secondary px-4 py-2 text-sm font-black text-secondary-foreground">{skill}</span>)}</div>
           <Card className="mt-8 rounded-3xl border-2 bg-card/85"><CardContent className="p-6"><Star className="h-6 w-6 text-pop" /><p className="mt-3 text-lg font-bold">“{member.review}”</p></CardContent></Card>

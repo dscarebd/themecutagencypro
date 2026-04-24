@@ -5,7 +5,7 @@ import { z } from "zod";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 import type { Tables } from "@/integrations/supabase/types";
 
-export type TeamMember = Tables<"team_members">;
+export type TeamMember = Tables<"team_members"> & { address: string };
 
 const memberSchema = z.object({
   id: z.string().uuid().optional(),
@@ -15,6 +15,7 @@ const memberSchema = z.object({
   role: z.string().trim().min(1).max(120),
   skills: z.array(z.string().trim().min(1).max(60)).min(1).max(8),
   phone: z.string().trim().min(5).max(40),
+  address: z.string().trim().max(300).default(""),
   email: z.string().trim().email().max(255),
   bio: z.string().trim().min(1).max(1200),
   review: z.string().trim().min(1).max(600),
@@ -63,7 +64,7 @@ export const listTeamMembers = createServerFn({ method: "GET" }).handler(async (
     .select("*")
     .order("display_order", { ascending: true });
   if (error) throw new Error(error.message);
-  return data ?? [];
+  return (data ?? []) as TeamMember[];
 });
 
 export const getTeamMemberBySlug = createServerFn({ method: "GET" })
@@ -76,7 +77,7 @@ export const getTeamMemberBySlug = createServerFn({ method: "GET" })
       .maybeSingle();
     if (error) throw new Error(error.message);
     if (!member) throw notFound();
-    return member;
+    return member as TeamMember;
   });
 
 export const uploadTeamImage = createServerFn({ method: "POST" })
@@ -105,7 +106,7 @@ export const saveTeamMember = createServerFn({ method: "POST" })
       : supabaseAdmin.from("team_members").insert(payload).select("*").single();
     const { data: member, error } = await query;
     if (error) throw new Error(error.message);
-    return member;
+    return member as TeamMember;
   });
 
 export const deleteTeamMember = createServerFn({ method: "POST" })
