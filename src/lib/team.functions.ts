@@ -100,7 +100,20 @@ export const saveTeamMember = createServerFn({ method: "POST" })
   .inputValidator((input) => memberSchema.parse(input))
   .handler(async ({ data }) => {
     const slug = await uniqueSlug(data.slug || data.name, data.id);
-    const payload = { ...data, slug };
+    const payload = {
+      name: data.name,
+      slug,
+      image_url: data.image_url,
+      role: data.role,
+      skills: data.skills,
+      phone: data.phone,
+      address: data.address,
+      email: data.email,
+      bio: data.bio,
+      review: data.review,
+      display_order: data.display_order,
+      updated_at: new Date().toISOString(),
+    };
     const query = data.id
       ? supabaseAdmin.from("team_members").update(payload).eq("id", data.id).select("*").single()
       : supabaseAdmin.from("team_members").insert(payload).select("*").single();
