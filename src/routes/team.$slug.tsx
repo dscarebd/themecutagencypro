@@ -34,7 +34,6 @@ function ProfilePage() {
         <div className="flex flex-col justify-center">
           <p className="font-black uppercase text-accent">{member.role}</p>
           <h1 className="mt-3 font-display text-6xl font-black">{member.name}</h1>
-          {member.address && <p className="mt-4 flex items-center gap-2 text-lg font-black text-primary"><MapPin className="h-5 w-5" /> {member.address}</p>}
           <p className="mt-5 text-xl text-muted-foreground">{member.bio}</p>
           <div className="mt-6 flex flex-wrap gap-2">{member.skills.map((skill: string) => <span key={skill} className="rounded-full bg-secondary px-4 py-2 text-sm font-black text-secondary-foreground">{skill}</span>)}</div>
           <Card className="mt-8 rounded-3xl border-2 bg-card/85"><CardContent className="p-6"><Star className="h-6 w-6 text-pop" /><p className="mt-3 text-lg font-bold">“{member.review}”</p></CardContent></Card>
@@ -42,6 +41,7 @@ function ProfilePage() {
             <Button asChild className="rounded-full"><a href={`mailto:${member.email}`}><Mail className="h-4 w-4" /> {member.email}</a></Button>
             <Button asChild variant="secondary" className="rounded-full"><a href={`tel:${member.phone}`}><Phone className="h-4 w-4" /> {member.phone}</a></Button>
           </div>
+          {member.address && <p className="mt-4 flex items-center gap-2 text-lg font-black text-primary"><MapPin className="h-5 w-5" /> {member.address}</p>}
         </div>
       </div>
     </section>
