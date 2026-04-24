@@ -3,7 +3,7 @@ import { ArrowRight, Mail, Phone, Quote, Star } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { portraitsImage } from "@/lib/site-data";
+import { memberImages, portraitsImage } from "@/lib/site-data";
 import type { TeamMember } from "@/lib/team.functions";
 
 export function SectionIntro({ eyebrow, title, copy }: { eyebrow: string; title: string; copy: string }) {
@@ -22,7 +22,7 @@ export function TeamGrid({ members }: { members: TeamMember[] }) {
       {members.map((member, index) => (
         <Card key={member.id} className="group overflow-hidden rounded-3xl border-2 bg-card/88 shadow-xl transition hover:-translate-y-1 hover:shadow-2xl">
           <div className="relative aspect-[4/3] overflow-hidden bg-secondary">
-            <img src={resolveImage(member.image_url)} alt={`${member.name}, ${member.role}`} className="h-full w-full object-cover transition duration-500 group-hover:scale-105" loading={index < 2 ? "eager" : "lazy"} width={1024} height={768} />
+            <img src={resolveImage(member.image_url, member.slug)} alt={`${member.name}, ${member.role}`} className="h-full w-full object-cover transition duration-500 group-hover:scale-105" loading={index < 2 ? "eager" : "lazy"} width={1024} height={768} />
             <div className="absolute left-4 top-4 rounded-full bg-pop px-3 py-1 text-xs font-black text-pop-foreground">#{member.display_order}</div>
           </div>
           <CardContent className="p-5">
@@ -72,6 +72,6 @@ export function QuoteCard({ text, author }: { text: string; author: string }) {
   );
 }
 
-function resolveImage(value: string) {
-  return value.startsWith("/src/assets") ? portraitsImage : value;
+function resolveImage(value: string, slug: string) {
+  return value.startsWith("/src/assets") ? memberImages[slug] ?? portraitsImage : value;
 }
