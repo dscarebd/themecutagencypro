@@ -26,7 +26,7 @@ function ProjectsPage() {
           <Card key={project.title} className="overflow-hidden rounded-[2rem] border-2 bg-card/90 shadow-xl">
             <CardContent className="grid gap-6 p-6 md:grid-cols-[.9fr_1.1fr] md:p-8">
               <div className="relative min-h-56 overflow-hidden rounded-3xl bg-secondary">
-                <img src={project.image} alt={`${project.title} project visual`} className="h-full min-h-56 w-full object-cover" loading={index === 0 ? "eager" : "lazy"} width={1024} height={768} />
+                <img src={project.image} alt={`${project.title} project visual`} className="h-full min-h-56 w-full object-cover" loading={index === 0 ? "eager" : "lazy"} decoding="async" fetchPriority={index === 0 ? "high" : "auto"} width={768} height={576} />
                 <p className="absolute bottom-5 left-5 rounded-full bg-pop px-4 py-2 font-display text-2xl font-black text-pop-foreground shadow-lg">0{index + 1}</p>
               </div>
               <div className="flex flex-col justify-center">

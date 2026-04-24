@@ -30,7 +30,7 @@ function ProfilePage() {
   return (
     <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
       <div className="grid gap-8 lg:grid-cols-[.85fr_1.15fr]">
-        <img src={image} alt={`${member.name}, ${member.role}`} className="aspect-square w-full rounded-[2rem] border-4 border-card object-cover shadow-2xl" width={1024} height={1024} />
+        <img src={image} alt={`${member.name}, ${member.role}`} className="aspect-square w-full rounded-[2rem] border-4 border-card object-cover shadow-2xl" decoding="async" fetchPriority="high" width={768} height={768} />
         <div className="flex flex-col justify-center">
           <p className="font-black uppercase text-accent">{member.role}</p>
           <h1 className="mt-3 font-display text-6xl font-black">{member.name}</h1>
