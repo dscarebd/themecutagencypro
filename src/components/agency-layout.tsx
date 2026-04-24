@@ -51,13 +51,13 @@ export function AgencyLayout({ children }: { children?: React.ReactNode }) {
             <p className="mt-4 max-w-md text-sm leading-6 text-background/80">Playful video editing, social media, and brand design for international teams that need scroll-stopping creative every week.</p>
           </div>
           <div>
-            <p className="font-black">Explore</p>
+            <p className="font-black text-background">Explore</p>
             <div className="mt-4 grid gap-2 text-sm text-background/80">
               {navItems.map((item) => <Link key={item.to} to={item.to} className="transition hover:text-background">{item.label}</Link>)}
             </div>
           </div>
           <div>
-            <p className="font-black">Services</p>
+            <p className="font-black text-background">Services</p>
             <div className="mt-4 grid gap-2 text-sm text-background/80">
               <span>Video editing</span>
               <span>Social growth</span>
@@ -66,7 +66,7 @@ export function AgencyLayout({ children }: { children?: React.ReactNode }) {
             </div>
           </div>
           <div>
-            <p className="font-black">Contact</p>
+            <p className="font-black text-background">Contact</p>
             <p className="mt-4 text-sm leading-6 text-background/80">London · Dubai · Toronto<br />Remote worldwide<br />hello@cutagency.studio<br />+1 646 555 0147</p>
           </div>
         </div>
