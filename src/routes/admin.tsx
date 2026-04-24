@@ -50,6 +50,16 @@ function toForm(member: TeamMember): FormState {
   return { id: member.id, name: member.name, slug: member.slug, image_url: member.image_url, role: member.role, skills: member.skills, phone: member.phone, email: member.email, bio: member.bio, review: member.review, display_order: member.display_order };
 }
 
+function slugFromName(value: string) {
+  return value
+    .toLowerCase()
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 80);
+}
+
 function AdminPage({ initialMembers }: { initialMembers: TeamMember[] }) {
   const router = useRouter();
   const saveMember = useServerFn(saveTeamMember);
@@ -84,7 +94,7 @@ function AdminPage({ initialMembers }: { initialMembers: TeamMember[] }) {
         </CardContent></Card>
         <Card className="rounded-[2rem] border-2 bg-card/90 shadow-xl"><CardContent className="space-y-4 p-5 md:p-7">
           <div className="grid gap-4 md:grid-cols-2">
-            <Field label="Name"><Input value={form.name} onChange={(e) => update("name", e.target.value)} placeholder="Name" maxLength={120} /></Field>
+            <Field label="Name"><Input value={form.name} onChange={(e) => setForm((current) => ({ ...current, name: e.target.value, slug: slugFromName(e.target.value) }))} placeholder="Name" maxLength={120} /></Field>
             <Field label="Profile URL"><Input value={form.slug} onChange={(e) => update("slug", e.target.value)} placeholder="Profile URL slug" maxLength={80} /></Field>
             <Field label="Role"><Input value={form.role} onChange={(e) => update("role", e.target.value)} placeholder="Role" maxLength={120} /></Field>
             <Field label="Email"><Input value={form.email} onChange={(e) => update("email", e.target.value)} placeholder="Email" maxLength={255} /></Field>
