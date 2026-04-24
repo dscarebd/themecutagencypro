@@ -4,6 +4,9 @@ import portraitsImage from "@/assets/cut-agency-portraits.jpg";
 import mayaImage from "@/assets/team-maya-chen.jpg";
 import noahImage from "@/assets/team-noah-rivera.jpg";
 import aishaImage from "@/assets/team-aisha-morgan.jpg";
+import sofiaImage from "@/assets/team-sofia-patel.jpg";
+import lucaImage from "@/assets/team-luca-kim.jpg";
+import zaraImage from "@/assets/team-zara-okafor.jpg";
 
 export { heroImage, teamImage, portraitsImage };
 
@@ -11,6 +14,9 @@ export const memberImages: Record<string, string> = {
   "maya-chen": mayaImage,
   "noah-rivera": noahImage,
   "aisha-morgan": aishaImage,
+  "sofia-patel": sofiaImage,
+  "luca-kim": lucaImage,
+  "zara-okafor": zaraImage,
 };
 
 export const navItems = [
@@ -106,5 +112,44 @@ export const fallbackTeam = [
     bio: "Aisha creates bright identity systems, launch visuals, and creator-ready brand kits for digital-first companies.",
     review: "Aisha gave our brand the confidence and color it was missing.",
     display_order: 3,
+  },
+  {
+    id: "sofia",
+    name: "Sofia Patel",
+    slug: "sofia-patel",
+    image_url: sofiaImage,
+    role: "Creative Producer",
+    skills: ["Shoot planning", "Client briefs", "Production flow"],
+    phone: "+1 647 555 0174",
+    email: "sofia@cutagency.studio",
+    bio: "Sofia turns messy creative ideas into calm production plans, clear shot lists, and smooth delivery rhythms.",
+    review: "Sofia made our campaign feel organized, bright, and effortless from the first call.",
+    display_order: 4,
+  },
+  {
+    id: "luca",
+    name: "Luca Kim",
+    slug: "luca-kim",
+    image_url: lucaImage,
+    role: "Motion Designer",
+    skills: ["Animated captions", "Kinetic type", "Social loops"],
+    phone: "+82 2 555 0192",
+    email: "luca@cutagency.studio",
+    bio: "Luca builds punchy motion systems that make edits feel faster, clearer, and more memorable on every feed.",
+    review: "Luca’s motion work instantly made our videos feel more premium and alive.",
+    display_order: 5,
+  },
+  {
+    id: "zara",
+    name: "Zara Okafor",
+    slug: "zara-okafor",
+    image_url: zaraImage,
+    role: "Content Strategist",
+    skills: ["Hooks", "Analytics", "Campaign testing"],
+    phone: "+234 1 555 0138",
+    email: "zara@cutagency.studio",
+    bio: "Zara reads audience signals, shapes creative angles, and helps brands turn weekly ideas into measurable growth.",
+    review: "Zara found the content angles our audience actually cared about.",
+    display_order: 6,
   },
 ];
