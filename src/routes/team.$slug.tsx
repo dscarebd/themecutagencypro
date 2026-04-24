@@ -3,7 +3,7 @@ import { Mail, Phone, Star } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { portraitsImage } from "@/lib/site-data";
+import { memberImages, portraitsImage } from "@/lib/site-data";
 import { getTeamMemberBySlug } from "@/lib/team.functions";
 
 export const Route = createFileRoute("/team/$slug")({
@@ -12,7 +12,7 @@ export const Route = createFileRoute("/team/$slug")({
   notFoundComponent: MissingProfile,
   head: ({ loaderData }) => {
     const member = loaderData;
-    const image = member?.image_url.startsWith("/src/assets") ? portraitsImage : member?.image_url;
+    const image = member ? resolveImage(member.image_url, member.slug) : undefined;
     return { meta: [
       { title: member ? `${member.name} — Theme Cut Agency Team` : "Team Profile — Theme Cut Agency" },
       { name: "description", content: member?.bio.slice(0, 155) ?? "Theme Cut Agency team profile." },
@@ -26,7 +26,7 @@ export const Route = createFileRoute("/team/$slug")({
 
 function ProfilePage() {
   const member = Route.useLoaderData();
-  const image = member.image_url.startsWith("/src/assets") ? portraitsImage : member.image_url;
+  const image = resolveImage(member.image_url, member.slug);
   return (
     <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
       <div className="grid gap-8 lg:grid-cols-[.85fr_1.15fr]">
@@ -49,4 +49,8 @@ function ProfilePage() {
 
 function MissingProfile() {
   return <section className="px-4 py-24 text-center"><h1 className="font-display text-5xl font-black">Profile not found</h1><Button asChild className="mt-6 rounded-full"><Link to="/team">Back to team</Link></Button></section>;
+}
+
+function resolveImage(value: string, slug: string) {
+  return value.startsWith("/src/assets") ? memberImages[slug] ?? portraitsImage : value;
 }

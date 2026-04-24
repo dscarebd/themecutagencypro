@@ -1,8 +1,17 @@
 import heroImage from "@/assets/cut-agency-hero.jpg";
 import teamImage from "@/assets/cut-agency-team.jpg";
 import portraitsImage from "@/assets/cut-agency-portraits.jpg";
+import mayaImage from "@/assets/team-maya-chen.jpg";
+import noahImage from "@/assets/team-noah-rivera.jpg";
+import aishaImage from "@/assets/team-aisha-morgan.jpg";
 
 export { heroImage, teamImage, portraitsImage };
+
+export const memberImages: Record<string, string> = {
+  "maya-chen": mayaImage,
+  "noah-rivera": noahImage,
+  "aisha-morgan": aishaImage,
+};
 
 export const navItems = [
   { to: "/", label: "Home" },
@@ -63,7 +72,7 @@ export const fallbackTeam = [
     id: "maya",
     name: "Maya Chen",
     slug: "maya-chen",
-    image_url: portraitsImage,
+    image_url: mayaImage,
     role: "Lead Video Editor",
     skills: ["Short-form edits", "Motion cuts", "Color rhythm"],
     phone: "+1 415 555 0198",
@@ -76,7 +85,7 @@ export const fallbackTeam = [
     id: "noah",
     name: "Noah Rivera",
     slug: "noah-rivera",
-    image_url: portraitsImage,
+    image_url: noahImage,
     role: "Social Growth Strategist",
     skills: ["Content calendars", "Trend mapping", "Community hooks"],
     phone: "+44 20 7946 0831",
@@ -89,7 +98,7 @@ export const fallbackTeam = [
     id: "aisha",
     name: "Aisha Morgan",
     slug: "aisha-morgan",
-    image_url: portraitsImage,
+    image_url: aishaImage,
     role: "Brand Design Director",
     skills: ["Identity systems", "Campaign art", "Creator kits"],
     phone: "+971 50 555 2841",
