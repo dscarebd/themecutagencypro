@@ -23,6 +23,11 @@ const memberSchema = z.object({
 
 const slugInputSchema = z.object({ slug: z.string().trim().min(1).max(160) });
 const deleteInputSchema = z.object({ id: z.string().uuid() });
+const uploadImageSchema = z.object({
+  file_name: z.string().trim().min(1).max(180),
+  content_type: z.string().trim().regex(/^image\/(jpeg|png|webp)$/),
+  base64: z.string().min(100).max(8_000_000),
+});
 
 function slugify(value: string) {
   const slug = value
@@ -72,6 +77,22 @@ export const getTeamMemberBySlug = createServerFn({ method: "GET" })
     if (error) throw new Error(error.message);
     if (!member) throw notFound();
     return member;
+  });
+
+export const uploadTeamImage = createServerFn({ method: "POST" })
+  .inputValidator((input) => uploadImageSchema.parse(input))
+  .handler(async ({ data }) => {
+    const extension = data.content_type.split("/")[1]?.replace("jpeg", "jpg") || "jpg";
+    const safeName = slugify(data.file_name.replace(/\.[^.]+$/, ""));
+    const path = `team/${Date.now()}-${safeName}.${extension}`;
+    const bytes = Uint8Array.from(atob(data.base64), (char) => char.charCodeAt(0));
+    const { error } = await supabaseAdmin.storage.from("team-images").upload(path, bytes, {
+      contentType: data.content_type,
+      upsert: true,
+    });
+    if (error) throw new Error(error.message);
+    const { data: publicData } = supabaseAdmin.storage.from("team-images").getPublicUrl(path);
+    return { url: publicData.publicUrl };
   });
 
 export const saveTeamMember = createServerFn({ method: "POST" })
