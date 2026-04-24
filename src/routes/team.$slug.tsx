@@ -6,7 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { portraitsImage } from "@/lib/site-data";
 import { getTeamMemberBySlug } from "@/lib/team.functions";
 
-export const Route = createFileRoute("/team/")({
+export const Route = createFileRoute("/team/$slug")({
   loader: ({ params }) => getTeamMemberBySlug({ data: { slug: params.slug } }),
   errorComponent: () => <MissingProfile />,
   notFoundComponent: MissingProfile,
