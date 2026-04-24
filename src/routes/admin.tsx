@@ -32,9 +32,9 @@ export const Route = createFileRoute("/admin")({
   errorComponent: () => <AdminPage initialMembers={fallbackTeam as TeamMember[]} />,
   notFoundComponent: () => <AdminPage initialMembers={fallbackTeam as TeamMember[]} />,
   head: () => ({ meta: [
-    { title: "Admin — Cut Agency" },
-    { name: "description", content: "Manage Cut Agency team members and dynamic profile URLs." },
-    { property: "og:title", content: "Admin — Cut Agency" },
+    { title: "Admin — Theme Cut Agency" },
+    { name: "description", content: "Manage Theme Cut Agency team members and dynamic profile URLs." },
+    { property: "og:title", content: "Admin — Theme Cut Agency" },
     { property: "og:description", content: "Edit team names, contact details, bios, skills, reviews, and profile URLs." },
   ]}),
   component: () => <AdminPage initialMembers={Route.useLoaderData()} />,

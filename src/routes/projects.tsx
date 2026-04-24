@@ -7,10 +7,10 @@ import { heroImage, projects } from "@/lib/site-data";
 
 export const Route = createFileRoute("/projects")({
   head: () => ({ meta: [
-    { title: "Projects — Cut Agency" },
-    { name: "description", content: "Sample Cut Agency video, social media, and brand design project case studies." },
-    { property: "og:title", content: "Projects — Cut Agency" },
-    { property: "og:description", content: "Explore colorful campaign case studies from Cut Agency." },
+    { title: "Projects — Theme Cut Agency" },
+    { name: "description", content: "Sample Theme Cut Agency video, social media, and brand design project case studies." },
+    { property: "og:title", content: "Projects — Theme Cut Agency" },
+    { property: "og:description", content: "Explore colorful campaign case studies from Theme Cut Agency." },
     { property: "og:image", content: heroImage },
     { name: "twitter:image", content: heroImage },
   ]}),
@@ -20,7 +20,7 @@ export const Route = createFileRoute("/projects")({
 function ProjectsPage() {
   return (
     <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-      <SectionIntro eyebrow="Projects" title="Campaigns cut for momentum" copy="AI-generated sample case studies showing the kind of international creative systems Cut Agency can produce." />
+      <SectionIntro eyebrow="Projects" title="Campaigns cut for momentum" copy="AI-generated sample case studies showing the kind of international creative systems Theme Cut Agency can produce." />
       <div className="grid gap-6">
         {projects.map((project, index) => (
           <Card key={project.title} className="overflow-hidden rounded-[2rem] border-2 bg-card/90 shadow-xl">

@@ -13,7 +13,7 @@ export function AgencyLayout({ children }: { children?: React.ReactNode }) {
             <span className="flex h-10 w-10 items-center justify-center rounded-2xl hero-gradient text-primary-foreground shadow-lg">
               <Scissors className="h-5 w-5" />
             </span>
-            Cut Agency
+            Theme Cut Agency
           </Link>
           <nav className="hidden items-center gap-1 md:flex">
             {navItems.map((item) => (
@@ -42,7 +42,7 @@ export function AgencyLayout({ children }: { children?: React.ReactNode }) {
       <footer className="border-t bg-ink text-primary-foreground">
         <div className="mx-auto grid max-w-7xl gap-8 px-4 py-10 sm:px-6 md:grid-cols-[1.4fr_1fr_1fr] lg:px-8">
           <div>
-            <p className="font-display text-2xl font-black">Cut Agency</p>
+            <p className="font-display text-2xl font-black">Theme Cut Agency</p>
             <p className="mt-3 max-w-md text-sm text-primary-foreground/75">Playful video editing, social media, and brand design for international teams that need scroll-stopping creative every week.</p>
           </div>
           <div>
