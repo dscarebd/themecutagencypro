@@ -1,4 +1,4 @@
-import { Link, Outlet } from "@tanstack/react-router";
+import { Link, NavLink } from "react-router-dom";
 import { Scissors, Menu } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -17,15 +17,20 @@ export function AgencyLayout({ children }: { children?: React.ReactNode }) {
           </Link>
           <nav className="hidden items-center gap-1 md:flex">
             {navItems.map((item) => (
-              <Link
+              <NavLink
                 key={item.to}
                 to={item.to}
-                activeOptions={{ exact: item.to === "/" }}
-                activeProps={{ className: "bg-secondary text-secondary-foreground" }}
-                className="rounded-full px-4 py-2 text-sm font-bold text-muted-foreground transition hover:bg-secondary hover:text-secondary-foreground"
+                end={item.to === "/"}
+                className={({ isActive }) =>
+                  `rounded-full px-4 py-2 text-sm font-bold transition ${
+                    isActive
+                      ? "bg-secondary text-secondary-foreground"
+                      : "text-muted-foreground hover:bg-secondary hover:text-secondary-foreground"
+                  }`
+                }
               >
                 {item.label}
-              </Link>
+              </NavLink>
             ))}
           </nav>
           <div className="flex items-center gap-2">
@@ -35,7 +40,7 @@ export function AgencyLayout({ children }: { children?: React.ReactNode }) {
           </div>
         </div>
       </header>
-      <main>{children ?? <Outlet />}</main>
+      <main>{children}</main>
       <footer className="border-t-4 border-primary bg-foreground text-background">
         <div className="mx-auto grid max-w-7xl gap-8 px-4 py-12 sm:px-6 md:grid-cols-[1.3fr_.8fr_.8fr_1fr] lg:px-8">
           <div>

@@ -1,25 +1,21 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { Helmet } from "react-helmet-async";
 import { TrendingUp } from "lucide-react";
 
 import { SectionIntro } from "@/components/page-sections";
 import { Card, CardContent } from "@/components/ui/card";
 import { heroImage, projects } from "@/lib/site-data";
 
-export const Route = createFileRoute("/projects")({
-  head: () => ({ meta: [
-    { title: "Projects — Theme Cut Agency" },
-    { name: "description", content: "Sample Theme Cut Agency video, social media, and brand design project case studies." },
-    { property: "og:title", content: "Projects — Theme Cut Agency" },
-    { property: "og:description", content: "Explore colorful campaign case studies from Theme Cut Agency." },
-    { property: "og:image", content: heroImage },
-    { name: "twitter:image", content: heroImage },
-  ]}),
-  component: ProjectsPage,
-});
-
-function ProjectsPage() {
+export default function ProjectsPage() {
   return (
     <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+      <Helmet>
+        <title>Projects — Theme Cut Agency</title>
+        <meta name="description" content="Sample Theme Cut Agency video, social media, and brand design project case studies." />
+        <meta property="og:title" content="Projects — Theme Cut Agency" />
+        <meta property="og:description" content="Explore colorful campaign case studies from Theme Cut Agency." />
+        <meta property="og:image" content={heroImage} />
+        <meta name="twitter:image" content={heroImage} />
+      </Helmet>
       <SectionIntro eyebrow="Projects" title="Campaigns cut for momentum" copy="AI-generated sample case studies showing the kind of international creative systems Theme Cut Agency can produce." />
       <div className="grid gap-6">
         {projects.map((project, index) => (

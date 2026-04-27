@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { Helmet } from "react-helmet-async";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { useState } from "react";
 import { z } from "zod";
@@ -16,22 +16,18 @@ const contactSchema = z.object({
   message: z.string().trim().min(10).max(1000),
 });
 
-export const Route = createFileRoute("/contact")({
-  head: () => ({ meta: [
-    { title: "Contact — Theme Cut Agency" },
-    { name: "description", content: "Contact Theme Cut Agency for video editing, social media, and brand design projects." },
-    { property: "og:title", content: "Contact — Theme Cut Agency" },
-    { property: "og:description", content: "Start an international creative project with Theme Cut Agency." },
-    { property: "og:image", content: heroImage },
-    { name: "twitter:image", content: heroImage },
-  ]}),
-  component: ContactPage,
-});
-
-function ContactPage() {
+export default function ContactPage() {
   const [status, setStatus] = useState("");
   return (
     <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+      <Helmet>
+        <title>Contact — Theme Cut Agency</title>
+        <meta name="description" content="Contact Theme Cut Agency for video editing, social media, and brand design projects." />
+        <meta property="og:title" content="Contact — Theme Cut Agency" />
+        <meta property="og:description" content="Start an international creative project with Theme Cut Agency." />
+        <meta property="og:image" content={heroImage} />
+        <meta name="twitter:image" content={heroImage} />
+      </Helmet>
       <SectionIntro eyebrow="Contact" title="Send the brief. We’ll cut the magic." copy="Tell us what you are launching and we will reply with a creative sprint plan." />
       <div className="grid gap-6 lg:grid-cols-[1.1fr_.9fr]">
         <Card className="rounded-[2rem] border-2 bg-card/90 shadow-xl">

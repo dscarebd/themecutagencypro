@@ -1,4 +1,5 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { Helmet } from "react-helmet-async";
+import { Link } from "react-router-dom";
 import { Clapperboard, Palette, Share2 } from "lucide-react";
 
 import { SectionIntro } from "@/components/page-sections";
@@ -6,21 +7,17 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { heroImage, services } from "@/lib/site-data";
 
-export const Route = createFileRoute("/services")({
-  head: () => ({ meta: [
-    { title: "Services — Theme Cut Agency" },
-    { name: "description", content: "Video editing, social media, and brand design services for international campaigns." },
-    { property: "og:title", content: "Services — Theme Cut Agency" },
-    { property: "og:description", content: "Explore Theme Cut Agency video editing, social media, and brand design services." },
-    { property: "og:image", content: heroImage },
-    { name: "twitter:image", content: heroImage },
-  ]}),
-  component: ServicesPage,
-});
-
-function ServicesPage() {
+export default function ServicesPage() {
   return (
     <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+      <Helmet>
+        <title>Services — Theme Cut Agency</title>
+        <meta name="description" content="Video editing, social media, and brand design services for international campaigns." />
+        <meta property="og:title" content="Services — Theme Cut Agency" />
+        <meta property="og:description" content="Explore Theme Cut Agency video editing, social media, and brand design services." />
+        <meta property="og:image" content={heroImage} />
+        <meta name="twitter:image" content={heroImage} />
+      </Helmet>
       <SectionIntro eyebrow="Services" title="Creative systems for every scroll" copy="Choose a focused sprint or combine editing, social, and brand design into one playful growth engine." />
       <div className="grid gap-6 lg:grid-cols-3">
         {services.map((service, index) => {

@@ -1,4 +1,5 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { Helmet } from "react-helmet-async";
+import { Link } from "react-router-dom";
 import { ArrowRight, Clapperboard, Palette, Play, Share2, Sparkles } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -6,21 +7,17 @@ import { Card, CardContent } from "@/components/ui/card";
 import { QuoteCard, ReviewStrip } from "@/components/page-sections";
 import { faqs, heroImage, projects, services, teamImage } from "@/lib/site-data";
 
-export const Route = createFileRoute("/")({
-  head: () => ({ meta: [
-    { title: "Theme Cut Agency — Playful CapCut-Inspired Creative Studio" },
-    { name: "description", content: "Theme Cut Agency is an international video editing, social media, and brand design studio for scroll-stopping campaigns." },
-    { property: "og:title", content: "Theme Cut Agency — Playful CapCut-Inspired Creative Studio" },
-    { property: "og:description", content: "International video editing, social media, and brand design with colorful motion-first creative." },
-    { property: "og:image", content: heroImage },
-    { name: "twitter:image", content: heroImage },
-  ]}),
-  component: Index,
-});
-
-function Index() {
+export default function HomePage() {
   return (
     <>
+      <Helmet>
+        <title>Theme Cut Agency — Playful CapCut-Inspired Creative Studio</title>
+        <meta name="description" content="Theme Cut Agency is an international video editing, social media, and brand design studio for scroll-stopping campaigns." />
+        <meta property="og:title" content="Theme Cut Agency — Playful CapCut-Inspired Creative Studio" />
+        <meta property="og:description" content="International video editing, social media, and brand design with colorful motion-first creative." />
+        <meta property="og:image" content={heroImage} />
+        <meta name="twitter:image" content={heroImage} />
+      </Helmet>
       <section className="relative min-h-[82vh] overflow-hidden px-4 py-12 sm:px-6 lg:px-8">
         <div className="absolute inset-0 -z-10"><img src={heroImage} alt="Colorful video editing studio background" className="h-full w-full object-cover opacity-35" decoding="async" fetchPriority="high" width={1344} height={768} /></div>
         <div className="mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-[1.05fr_.95fr]">
