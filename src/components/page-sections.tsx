@@ -1,10 +1,10 @@
-import { Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 import { ArrowRight, Mail, MapPin, Phone, Quote, Star } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { memberImages, portraitsImage } from "@/lib/site-data";
-import type { TeamMember } from "@/lib/team.functions";
+import type { TeamMember } from "@/lib/team";
 
 export function SectionIntro({ eyebrow, title, copy }: { eyebrow: string; title: string; copy: string }) {
   return (
@@ -35,7 +35,7 @@ export function TeamGrid({ members }: { members: TeamMember[] }) {
             <p className="mt-4 line-clamp-3 text-sm text-muted-foreground">{member.bio}</p>
             <div className="mt-5 flex items-center justify-between gap-3">
               <Button asChild className="rounded-full">
-                <Link to="/team/$slug" params={{ slug: member.slug }}>Profile <ArrowRight className="h-4 w-4" /></Link>
+                <Link to={`/team/${member.slug}`}>Profile <ArrowRight className="h-4 w-4" /></Link>
               </Button>
               <div className="flex gap-2 text-muted-foreground">
                 <a href={`mailto:${member.email}`} aria-label={`Email ${member.name}`}><Mail className="h-4 w-4" /></a>
